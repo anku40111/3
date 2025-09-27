@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Express - Your Wellness News Source</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background-color: #f8fffe;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, #2c5530 0%, #3e7b3e 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .search-box {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 25px;
+            outline: none;
+            width: 250px;
+        }
+
+        .search-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .search-btn:hover {
+            background: #219a52;
+        }
+
+        /* Navigation Styles */
+        nav {
+            background: #34495e;
+            padding: 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: #27ae60;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* Main Content Styles */
+        main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 30px 0;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .featured-article {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .featured-article:hover {
+            transform: translateY(-2px);
+        }
+
+        .featured-article img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .article-content {
+            padding: 25px;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .article-title {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .article-excerpt {
+            color: #5d6d7e;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            background: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .read-more:hover {
+            background: #219a52;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .sidebar-article {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ecf0f1;
+            cursor: pointer;
+            transition: background 0.3s;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .sidebar-article:hover {
+            background: #f8f9fa;
+        }
+
+        .sidebar-article:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .sidebar-article img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .sidebar-content h4 {
+            font-size: 0.95rem;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            line-height: 1.3;
+        }
+
+        .sidebar-content p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        /* Article Grid */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .card-excerpt {
+            color: #5d6d7e;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Newsletter Signup */
+        .newsletter {
+            background: #27ae60;
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .newsletter h3 {
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: #2c3e50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .newsletter-btn:hover {
+            background: #34495e;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        /* Added modal styles for article popups */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #27ae60;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 30px;
+            line-height: 1.8;
+        }
+
+        .modal-body img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-meta {
+            display: flex;
+            gap: 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-box {
+                width: 200px;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #34495e;
+                z-index: 1000;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            main {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            /* Making modal full-screen on mobile with fixed close button */
+            .modal-content {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                border-radius: 0;
+                max-height: 100vh;
+                max-width: 100%;
+            }
+
+            .modal-header {
+                position: sticky;
+                top: 0;
+                z-index: 1001;
+                border-radius: 0;
+                padding: 15px 20px;
+            }
+
+            .modal-body {
+                padding: 15px;
+                padding-bottom: 50px;
+            }
+
+            .close {
+                position: fixed;
+                top: 15px;
+                right: 20px;
+                z-index: 1002;
+                background: rgba(0,0,0,0.7);
+                color: white;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+            }
+
+            /* Better mobile navigation styling */
+            .nav-container {
+                position: relative;
+            }
+
+            .nav-link {
+                padding: 12px 20px;
+                border-bottom: 1px solid #2c3e50;
+            }
+
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+
+            /* Mobile-specific article grid */
+            .articles-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .featured-article img {
+                height: 200px;
+            }
+
+            .article-content {
+                padding: 15px;
+            }
+
+            .article-title {
+                font-size: 1.4rem;
+            }
+
+            .sidebar {
+                margin-top: 20px;
+                padding: 20px;
+            }
+
+            .sidebar-article {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .sidebar-article img {
+                width: 100%;
+                height: 150px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Additional mobile optimizations for very small screens */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            .search-box {
+                width: 150px;
+                font-size: 14px;
+            }
+
+            .search-btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .article-title {
+                font-size: 1.2rem;
+            }
+
+            .card-title {
+                font-size: 1rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.2rem;
+                padding-right: 50px;
+            }
+
+            .close {
+                width: 35px;
+                height: 35px;
+                font-size: 20px;
+                top: 10px;
+                right: 15px;
+            }
+        }
+
+        /* Removed loading animation styles as it was causing issues */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=40&h=40&fit=crop&crop=center" alt="Health Express Logo">
+                    <h1>Health Express</h1>
+                </div>
+                <!-- <div class="search-container">
+                    <input type="text" id="searchInput" class="search-box" placeholder="Search health articles...">
+                    <button class="search-btn" onclick="performSearch()">Search</button>
+                </div> -->
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" onclick="showSection('home')">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('nutrition')">Nutrition</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('fitness')">Fitness</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('mental-health')">Mental Health</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('medical-news')">Medical News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" onclick="showSection('wellness')">Wellness</a>
+                    </li>
+                </ul>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main>
+            <div class="main-content">
+                <!-- Home Section -->
+                <section id="home" class="content-section active">
+                    <article class="featured-article" onclick="showFullArticle('alzheimer-breakthrough')">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=300&fit=crop" alt="Alzheimer's Research Breakthrough">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 15, 2024</span>
+                                <span>👤 Dr. Sarah Mitchell</span>
+                                <span>🏷️ Medical Research</span>
+                            </div>
+                            <h2 class="article-title">European Medical Alliance Announces Major Breakthrough in Alzheimer's Treatment</h2>
+                            <p class="article-excerpt">
+                                A groundbreaking study conducted across 12 European research centers has shown promising results in slowing Alzheimer's progression by 40%. The new treatment, combining advanced immunotherapy with personalized medicine approaches, represents the most significant advancement in dementia care in over a decade.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('alzheimer-breakthrough')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('mediterranean-diet')">
+                            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=300&h=200&fit=crop" alt="Mediterranean Diet Study">
+                            <div class="card-content">
+                                <h3 class="card-title">Mediterranean Diet Reduces Heart Disease Risk by 30%</h3>
+                                <p class="card-excerpt">New American Heart Association study reveals the powerful protective effects of traditional Mediterranean eating patterns...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('exercise-depression')">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=300&h=200&fit=crop" alt="Exercise and Mental Health">
+                            <div class="card-content">
+                                <h3 class="card-title">Exercise Proven as Effective as Medication for Depression</h3>
+                                <p class="card-excerpt">European Journal of Psychiatry publishes comprehensive analysis showing regular exercise matches antidepressant effectiveness...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('sleep-immune')">
+                            <img src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=300&h=200&fit=crop" alt="Sleep Quality Research">
+                            <div class="card-content">
+                                <h3 class="card-title">Sleep Quality Linked to Immune System Strength</h3>
+                                <p class="card-excerpt">Harvard Medical School research demonstrates how 7-9 hours of quality sleep significantly boosts immune response...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Nutrition Section -->
+                <section id="nutrition" class="content-section">
+                    <article class="featured-article" onclick="showFullArticle('superfoods-research')">
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=300&fit=crop" alt="Superfoods Research">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 14, 2024</span>
+                                <span>👤 Prof. Maria Rodriguez</span>
+                                <span>🏷️ Nutrition Science</span>
+                            </div>
+                            <h2 class="article-title">Top 10 Superfoods That Actually Live Up to the Hype</h2>
+                            <p class="article-excerpt">
+                                Based on extensive research from American and European nutrition institutes, we've identified the foods with the strongest scientific backing for health benefits. From blueberries to salmon, discover which superfoods deserve a place in your daily diet.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('superfoods-research')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('intermittent-fasting')">
+                            <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=300&h=200&fit=crop" alt="Intermittent Fasting">
+                            <div class="card-content">
+                                <h3 class="card-title">Intermittent Fasting: What the Latest Research Says</h3>
+                                <p class="card-excerpt">Comprehensive review of 50+ studies reveals the real benefits and risks of time-restricted eating...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('plant-based-diet')">
+                            <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&h=200&fit=crop" alt="Plant-Based Diet">
+                            <div class="card-content">
+                                <h3 class="card-title">Plant-Based Diets Reduce Cancer Risk by 15%</h3>
+                                <p class="card-excerpt">Major European study tracking 500,000 participants over 10 years shows significant cancer prevention benefits...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('hydration-research')">
+                            <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=300&h=200&fit=crop" alt="Hydration Research">
+                            <div class="card-content">
+                                <h3 class="card-title">How Much Water Do You Really Need?</h3>
+                                <p class="card-excerpt">New guidelines from the American Institute of Medicine challenge the traditional "8 glasses a day" rule...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Fitness Section -->
+                <section id="fitness" class="content-section">
+                    <article class="featured-article" onclick="showFullArticle('fitness-tech')">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=300&fit=crop" alt="Fitness Technology">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 13, 2024</span>
+                                <span>👤 Dr. James Thompson</span>
+                                <span>🏷️ Fitness Technology</span>
+                            </div>
+                            <h2 class="article-title">Wearable Fitness Tech: Game-Changer or Expensive Gadget?</h2>
+                            <p class="article-excerpt">
+                                Stanford University's latest research examines the effectiveness of fitness trackers and smartwatches in improving health outcomes. The results might surprise you - some features are incredibly valuable while others are just marketing hype.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('fitness-tech')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('strength-training')">
+                            <img src="https://cdn.runrepeat.com/storage/gallery/post/25389/benefitsweightliftingsenior-title-11982064-main.png" alt="Strength Training">
+                            <div class="card-content">
+                                <h3 class="card-title">Strength Training Slows Aging Process</h3>
+                                <p class="card-excerpt">European research shows resistance training can reverse cellular aging markers by up to 10 years...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('yoga-benefits')">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUe-Fr29WZHjeisbm9ER0gu8vC-WL_GASAzA&s" alt="Yoga Benefits">
+                            <div class="card-content">
+                                <h3 class="card-title">Yoga's Impact on Chronic Pain Management</h3>
+                                <p class="card-excerpt">American Pain Society study reveals yoga reduces chronic pain by 40% and improves quality of life...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('hiit-training')">
+                            <img src="https://www.vitalscend.com/wp-content/uploads/2023/03/hiit-vs-liss.svg" alt="HIIT Training">
+                            <div class="card-content">
+                                <h3 class="card-title">HIIT vs. Steady Cardio: Which Burns More Fat?</h3>
+                                <p class="card-excerpt">Comprehensive analysis of 30 studies settles the debate about the most effective cardio for weight loss...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Mental Health Section -->
+                <section id="mental-health" class="content-section">
+                    <article class="featured-article" onclick="showFullArticle('mindfulness-meditation')">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=300&fit=crop" alt="Mental Health Research">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 12, 2024</span>
+                                <span>👤 Dr. Emily Chen</span>
+                                <span>🏷️ Mental Health</span>
+                            </div>
+                            <h2 class="article-title">Mindfulness Meditation Rewires the Brain in Just 8 Weeks</h2>
+                            <p class="article-excerpt">
+                                Groundbreaking neuroimaging study from Harvard Medical School shows that regular mindfulness practice creates measurable changes in brain structure, improving emotional regulation and reducing anxiety by up to 60%.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('mindfulness-meditation')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('digital-detox')">
+                            <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=300&h=200&fit=crop" alt="Digital Detox">
+                            <div class="card-content">
+                                <h3 class="card-title">Digital Detox: Reclaiming Your Mental Space</h3>
+                                <p class="card-excerpt">European study reveals how reducing screen time by 2 hours daily improves sleep and reduces anxiety...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('social-connections')">
+                            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=300&h=200&fit=crop" alt="Social Connections">
+                            <div class="card-content">
+                                <h3 class="card-title">Social Connections: The Ultimate Health Booster</h3>
+                                <p class="card-excerpt">Harvard's 80-year study reveals strong relationships are the key to happiness and longevity...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('stress-management')">
+                            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300&h=200&fit=crop" alt="Stress Management">
+                            <div class="card-content">
+                                <h3 class="card-title">5 Science-Backed Stress Reduction Techniques</h3>
+                                <p class="card-excerpt">American Psychological Association identifies the most effective methods for managing chronic stress...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Medical News Section -->
+                <section id="medical-news" class="content-section">
+                    <article class="featured-article" onclick="showFullArticle('gene-therapy')">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=300&fit=crop" alt="Medical Innovation">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 11, 2024</span>
+                                <span>👤 Dr. Robert Anderson</span>
+                                <span>🏷️ Medical Innovation</span>
+                            </div>
+                            <h2 class="article-title">Gene Therapy Shows Promise for Treating Type 1 Diabetes</h2>
+                            <p class="article-excerpt">
+                                Clinical trials across American and European medical centers demonstrate that innovative gene therapy could restore insulin production in Type 1 diabetes patients, potentially eliminating the need for daily injections.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('gene-therapy')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('ai-healthcare')">
+                            <img src="https://www.nationalhealthexecutive.com/sites/nhe/files/styles/large/public/2023-05/01.%20Melanoma%20app.jpg?itok=83zQ4LgJ" alt="AI in Healthcare">
+                            <div class="card-content">
+                                <h3 class="card-title">AI Diagnoses Skin Cancer More Accurately Than Doctors</h3>
+                                <p class="card-excerpt">European dermatology study shows AI system achieves 95% accuracy in melanoma detection...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('universal-vaccine')">
+                            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=300&h=200&fit=crop" alt="Vaccine Research">
+                            <div class="card-content">
+                                <h3 class="card-title">Universal Flu Vaccine Shows Promise in Trials</h3>
+                                <p class="card-excerpt">American researchers develop vaccine that could provide protection against all flu strains for decades...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('telemedicine')">
+                            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=300&h=200&fit=crop" alt="Telemedicine">
+                            <div class="card-content">
+                                <h3 class="card-title">Telemedicine Improves Rural Healthcare Access</h3>
+                                <p class="card-excerpt">European health systems report 70% improvement in rural patient outcomes through virtual consultations...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- Wellness Section -->
+                <section id="wellness" class="content-section">
+                    <article class="featured-article" onclick="showFullArticle('work-life-balance')">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=300&fit=crop" alt="Wellness Lifestyle">
+                        <div class="article-content">
+                            <div class="article-meta">
+                                <span>📅 December 10, 2024</span>
+                                <span>👤 Dr. Lisa Williams</span>
+                                <span>🏷️ Lifestyle Medicine</span>
+                            </div>
+                            <h2 class="article-title">The Science of Work-Life Balance: What Really Works</h2>
+                            <p class="article-excerpt">
+                                Comprehensive analysis of workplace wellness programs across America and Europe reveals which strategies actually improve employee health and happiness. The results challenge conventional wisdom about work-life balance.
+                            </p>
+                            <a href="#" class="read-more" onclick="event.stopPropagation(); showFullArticle('work-life-balance')">Read Full Article</a>
+                        </div>
+                    </article>
+
+                    <div class="articles-grid">
+                        <article class="article-card" onclick="showFullArticle('aromatherapy')">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=200&fit=crop" alt="Aromatherapy">
+                            <div class="card-content">
+                                <h3 class="card-title">Aromatherapy: Science Behind the Scents</h3>
+                                <p class="card-excerpt">Clinical studies validate the therapeutic effects of essential oils on stress, sleep, and cognitive function...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('forest-bathing')">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=300&h=200&fit=crop" alt="Nature Therapy">
+                            <div class="card-content">
+                                <h3 class="card-title">Forest Bathing: Nature's Prescription for Health</h3>
+                                <p class="card-excerpt">Japanese research shows spending time in forests boosts immune system and reduces stress hormones...</p>
+                            </div>
+                        </article>
+                        <article class="article-card" onclick="showFullArticle('massage-therapy')">
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=200&fit=crop" alt="Spa Therapy">
+                            <div class="card-content">
+                                <h3 class="card-title">Massage Therapy: More Than Just Relaxation</h3>
+                                <p class="card-excerpt">American Massage Therapy Association study reveals significant benefits for chronic pain and anxiety...</p>
+                            </div>
+                        </article>
+                    </div>
+                </section>
+            </div>
+
+            <aside class="sidebar">
+                <h3>Latest Health News</h3>
+                <article class="sidebar-article" onclick="showFullArticle('vitamin-d-covid')">
+                    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=80&h=80&fit=crop" alt="Vitamin D Research">
+                    <div class="sidebar-content">
+                        <h4>Vitamin D Deficiency Linked to Severe COVID-19</h4>
+                        <p>European study of 50,000 patients reveals connection...</p>
+                    </div>
+                </article>
+                <article class="sidebar-article" onclick="showFullArticle('coffee-alzheimers')">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=80&h=80&fit=crop" alt="Coffee Health Benefits">
+                    <div class="sidebar-content">
+                        <h4>Coffee Consumption Reduces Alzheimer's Risk</h4>
+                        <p>American research shows 3-4 cups daily provide protection...</p>
+                    </div>
+                </article>
+                <article class="sidebar-article" onclick="showFullArticle('gut-health')">
+                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=80&h=80&fit=crop" alt="Gut Health">
+                    <div class="sidebar-content">
+                        <h4>Gut Health Revolution: New Probiotic Discoveries</h4>
+                        <p>Breakthrough research identifies key bacterial strains...</p>
+                    </div>
+                </article>
+                <article class="sidebar-article" onclick="showFullArticle('blue-zones')">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=80&h=80&fit=crop" alt="Longevity Research">
+                    <div class="sidebar-content">
+                        <h4>Blue Zones: Secrets of the World's Longest-Lived People</h4>
+                        <p>New analysis of centenarian communities reveals...</p>
+                    </div>
+                </article>
+
+                <div class="newsletter">
+                    <h3>Stay Informed</h3>
+                    <p>Get the latest health and wellness news delivered to your inbox.</p>
+                    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                        <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </aside>
+        </main>
+    </div>
+    
+
+    <!-- Added modal for full article display -->
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Article Title</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Article content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Health Express. All rights reserved. | Committed to providing accurate, science-based health information.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+            
+            // Update active nav link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Close mobile menu after selection
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.remove('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const isActive = navMenu.classList.contains('active');
+            
+            if (isActive) {
+                navMenu.classList.remove('active');
+            } else {
+                navMenu.classList.add('active');
+            }
+        }
+
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                alert(`Searching for: "${query}"\n\nThis would typically connect to a search API to find relevant health articles.`);
+            }
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            alert(`Thank you for subscribing with email: ${email}\n\nYou'll receive our weekly health and wellness newsletter.`);
+            event.target.reset();
+        }
+
+        const articleData = {
+            'alzheimer-breakthrough': {
+                title: 'European Medical Alliance Announces Major Breakthrough in Alzheimer\'s Treatment',
+                image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop',
+                author: 'Dr. Sarah Mitchell',
+                date: 'December 15, 2024',
+                category: 'Medical Research',
+                content: `
+                    <p>In a groundbreaking development that could revolutionize Alzheimer's treatment, the European Medical Alliance has announced remarkable results from a multi-center clinical trial involving over 2,000 patients across 12 countries.</p>
+                    
+                    <p>The innovative treatment protocol combines advanced immunotherapy with personalized medicine approaches, targeting the specific protein aggregations that characterize Alzheimer's disease. Preliminary results show a 40% reduction in cognitive decline compared to current standard treatments.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>40% slower progression of cognitive decline</li>
+                        <li>Improved quality of life scores in 78% of participants</li>
+                        <li>Reduced caregiver burden by an average of 35%</li>
+                        <li>Minimal side effects compared to existing treatments</li>
+                    </ul>
+                    
+                    <p>Dr. Sarah Mitchell, lead researcher at the Institute for Neurological Sciences in Geneva, explains: "This represents the most significant advancement in dementia care we've seen in over a decade. The combination of targeted immunotherapy with personalized dosing based on genetic markers has shown unprecedented promise."</p>
+                    
+                    <p>The treatment works by training the immune system to recognize and clear the toxic protein plaques that accumulate in Alzheimer's patients' brains. Unlike previous approaches that showed limited success, this new protocol adapts to each patient's unique genetic profile and disease progression.</p>
+                    
+                    <p>The next phase of trials will expand to include 5,000 participants across Europe and North America, with results expected by late 2025. If successful, the treatment could be available to patients by 2027.</p>
+                `
+            },
+            'mediterranean-diet': {
+                title: 'Mediterranean Diet Reduces Heart Disease Risk by 30%',
+                image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=400&fit=crop',
+                author: 'Dr. Maria Gonzalez',
+                date: 'December 14, 2024',
+                category: 'Nutrition',
+                content: `
+                    <p>A comprehensive study by the American Heart Association, following 25,000 participants over 15 years, has confirmed that adherence to a traditional Mediterranean diet reduces cardiovascular disease risk by 30%.</p>
+                    
+                    <p>The research, published in the Journal of the American College of Cardiology, tracked participants from diverse backgrounds across the United States, monitoring their dietary patterns and health outcomes.</p>
+                    
+                    <p><strong>Mediterranean Diet Components:</strong></p>
+                    <ul>
+                        <li>High consumption of olive oil, nuts, and seeds</li>
+                        <li>Abundant fruits and vegetables (7-9 servings daily)</li>
+                        <li>Whole grains and legumes as primary carbohydrates</li>
+                        <li>Fish and seafood 2-3 times per week</li>
+                        <li>Limited red meat and processed foods</li>
+                        <li>Moderate wine consumption with meals</li>
+                    </ul>
+                    
+                    <p>Participants who most closely followed the Mediterranean eating pattern showed remarkable improvements in multiple cardiovascular markers, including reduced inflammation, better cholesterol profiles, and improved blood pressure control.</p>
+                    
+                    <p>The study also revealed that the protective effects were most pronounced in individuals who maintained the diet for at least 5 years, suggesting that long-term adherence is key to maximizing benefits.</p>
+                `
+            },
+            'superfoods-research': {
+                title: 'Top 10 Superfoods That Actually Live Up to the Hype',
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&h=400&fit=crop',
+                author: 'Prof. Maria Rodriguez',
+                date: 'December 14, 2024',
+                category: 'Nutrition Science',
+                content: `
+                    <p>After analyzing over 200 studies from leading nutrition institutes across America and Europe, researchers have identified the foods with the strongest scientific backing for health benefits.</p>
+                    
+                    <p><strong>The Top 10 Evidence-Based Superfoods:</strong></p>
+                    <ol>
+                        <li><strong>Blueberries</strong> - Highest antioxidant content, proven cognitive benefits</li>
+                        <li><strong>Salmon</strong> - Omega-3 fatty acids for heart and brain health</li>
+                        <li><strong>Spinach</strong> - Iron, folate, and nitrates for cardiovascular health</li>
+                        <li><strong>Greek Yogurt</strong> - Probiotics and protein for gut and muscle health</li>
+                        <li><strong>Quinoa</strong> - Complete protein and fiber for sustained energy</li>
+                        <li><strong>Avocados</strong> - Monounsaturated fats and potassium</li>
+                        <li><strong>Sweet Potatoes</strong> - Beta-carotene and complex carbohydrates</li>
+                        <li><strong>Walnuts</strong> - Plant-based omega-3s and vitamin E</li>
+                        <li><strong>Broccoli</strong> - Sulforaphane compounds with anti-cancer properties</li>
+                        <li><strong>Dark Chocolate (70%+ cacao)</strong> - Flavonoids for heart health</li>
+                    </ol>
+                    
+                    <p>The research emphasizes that while these foods offer exceptional nutritional value, the key to optimal health lies in dietary diversity and overall eating patterns rather than relying on individual "superfoods."</p>
+                `
+            },
+            'exercise-depression': {
+                title: 'Exercise Proven as Effective as Medication for Depression',
+                image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=400&fit=crop',
+                author: 'Dr. Anya Sharma',
+                date: 'December 13, 2024',
+                category: 'Mental Health',
+                content: `
+                    <p>A landmark meta-analysis published in the European Journal of Psychiatry has concluded that regular physical exercise can be as effective as antidepressant medication for treating mild to moderate depression.</p>
+                    
+                    <p>The study, which reviewed data from over 100 clinical trials involving more than 10,000 participants, found that consistent aerobic exercise and strength training significantly reduced depressive symptoms.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>Exercise showed comparable efficacy to antidepressants for mild to moderate depression.</li>
+                        <li>Benefits were observed across various types of exercise, including running, brisk walking, and weightlifting.</li>
+                        <li>Participants who exercised regularly reported improved mood, reduced anxiety, and better sleep quality.</li>
+                        <li>Exercise also demonstrated a lower relapse rate compared to medication alone in some studies.</li>
+                    </ul>
+                    
+                    <p>"This research provides strong evidence that exercise should be a cornerstone of depression treatment," stated lead author Dr. Anya Sharma. "It's a natural, accessible, and highly effective intervention with numerous additional health benefits."</p>
+                    
+                    <p>The study recommends at least 30 minutes of moderate-intensity exercise most days of the week for optimal mental health benefits.</p>
+                `
+            },
+            'sleep-immune': {
+                title: 'Sleep Quality Linked to Immune System Strength',
+                image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&h=400&fit=crop',
+                author: 'Dr. Kenji Tanaka',
+                date: 'December 12, 2024',
+                category: 'Immunology',
+                content: `
+                    <p>New research from Harvard Medical School highlights the critical role of sleep quality in maintaining a robust immune system. The study, published in Nature Immunology, reveals how insufficient or poor-quality sleep can impair the body's ability to fight off infections.</p>
+                    
+                    <p>Researchers found that sleep deprivation significantly reduces the production of T cells, crucial immune cells that help the body combat pathogens. Conversely, adequate sleep enhances the effectiveness of these cells.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>7-9 hours of quality sleep per night is essential for optimal immune function.</li>
+                        <li>Sleep deprivation impairs T cell function and reduces antibody response to vaccines.</li>
+                        <li>Consistent sleep patterns are more beneficial than sporadic long sleep periods.</li>
+                        <li>Poor sleep quality is linked to increased susceptibility to common colds and flu.</li>
+                    </ul>
+                    
+                    <p>"Our findings underscore that sleep is not a luxury but a fundamental pillar of health, as vital as diet and exercise for immune defense," explained Dr. Kenji Tanaka, the study's lead author.</p>
+                    
+                    <p>The study recommends prioritizing sleep hygiene, including maintaining a regular sleep schedule, creating a relaxing bedtime routine, and ensuring a dark, quiet, and cool sleep environment.</p>
+                `
+            },
+            'fitness-tech': {
+                title: 'Wearable Fitness Tech: Game-Changer or Expensive Gadget?',
+                image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=400&fit=crop',
+                author: 'Dr. James Thompson',
+                date: 'December 13, 2024',
+                category: 'Fitness Technology',
+                content: `
+                    <p>Stanford University's latest research examines the effectiveness of wearable fitness trackers and smartwatches in improving health outcomes. The results might surprise you - some features are incredibly valuable while others are just marketing hype.</p>
+                    
+                    <p>The study, published in the Journal of Medical Internet Research, analyzed data from over 5,000 users of various wearable devices. It found that while devices can motivate users and provide valuable insights into activity levels and sleep patterns, their impact on long-term health behavior change is often limited.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li><strong>Activity Tracking:</strong> Highly effective in increasing daily step counts and general activity levels.</li>
+                        <li><strong>Sleep Monitoring:</strong> Provides useful data but often lacks actionable insights for improvement.</li>
+                        <li><strong>Heart Rate Monitoring:</strong> Accurate for general fitness but can be unreliable during intense exercise.</li>
+                        <li><strong>Advanced Metrics (e.g., VO2 Max, ECG):</strong> Often complex and may not translate to significant health benefits for the average user.</li>
+                        <li><strong>Motivation:</strong> Gamification and goal-setting features can be highly motivating for some users.</li>
+                    </ul>
+                    
+                    <p>"Wearables are powerful tools when used correctly," stated Dr. James Thompson. "The key is to focus on the data that truly matters for your health goals and to use it as a springboard for making sustainable lifestyle changes, rather than just passively collecting numbers."</p>
+                    
+                    <p>The researchers recommend users consult with healthcare professionals to interpret data and set realistic health objectives.</p>
+                `
+            },
+            'strength-training': {
+                title: 'Strength Training Slows Aging Process',
+                image: 'https://images.unsplash.com/photo-1581009146145-155b55b2d1e?w=800&h=400&fit=crop',
+                author: 'Dr. Lena Petrova',
+                date: 'December 12, 2024',
+                category: 'Aging Research',
+                content: `
+                    <p>European research published in the journal Cell Metabolism suggests that regular strength training can significantly reverse cellular aging markers, potentially making individuals biologically younger.</p>
+                    
+                    <p>The study, conducted on a cohort of adults aged 65-80, found that a 12-week resistance training program led to improvements in muscle mass, mitochondrial function, and insulin sensitivity, markers typically associated with younger individuals.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>Muscle mass increased by an average of 15%.</li>
+                        <li>Mitochondrial efficiency, crucial for energy production, improved by up to 20%.</li>
+                        <li>Insulin sensitivity, a key indicator of metabolic health, saw significant gains.</li>
+                        <li>Participants reported increased energy levels and improved physical function.</li>
+                    </ul>
+                    
+                    <p>"This research provides compelling evidence that resistance training is not just about building muscle, but about rejuvenating our cells and combating the aging process at a fundamental level," explained Dr. Lena Petrova.</p>
+                    
+                    <p>The study advocates for incorporating strength training into the routines of older adults to maintain health and vitality.</p>
+                `
+            },
+            'yoga-benefits': {
+                title: 'Yoga\'s Impact on Chronic Pain Management',
+                image: 'https://images.unsplash.com/photo-1506629905607-d405b7a30db9?w=800&h=400&fit=crop',
+                author: 'Dr. David Lee',
+                date: 'December 11, 2024',
+                category: 'Pain Management',
+                content: `
+                    <p>A significant study by the American Pain Society reveals that regular yoga practice can reduce chronic pain by up to 40% and substantially improve the quality of life for sufferers.</p>
+                    
+                    <p>The research, involving over 3,000 participants with conditions like lower back pain, arthritis, and fibromyalgia, demonstrated that yoga's combination of physical postures, breathing techniques, and meditation offers a holistic approach to pain management.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>40% average reduction in reported pain levels.</li>
+                        <li>Improved physical function and mobility.</li>
+                        <li>Reduced reliance on pain medication.</li>
+                        <li>Enhanced mental well-being, including decreased anxiety and depression.</li>
+                    </ul>
+                    
+                    <p>"Yoga offers a powerful, non-pharmacological approach to managing chronic pain," said Dr. David Lee, the study's principal investigator. "Its benefits extend beyond physical relief, addressing the emotional and psychological toll that chronic pain can take."</p>
+                    
+                    <p>The study recommends gentle yoga styles like Hatha or Restorative yoga for individuals managing chronic pain, emphasizing the importance of qualified instruction.</p>
+                `
+            },
+            'mindfulness-meditation': {
+                title: 'Mindfulness Meditation Rewires the Brain in Just 8 Weeks',
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop',
+                author: 'Dr. Emily Chen',
+                date: 'December 12, 2024',
+                category: 'Mental Health',
+                content: `
+                    <p>Groundbreaking neuroimaging study from Harvard Medical School shows that regular mindfulness practice creates measurable changes in brain structure, improving emotional regulation and reducing anxiety by up to 60%.</p>
+                    
+                    <p>The study, published in the journal Psychiatry Research: Neuroimaging, used fMRI scans to track brain activity in participants who engaged in an 8-week mindfulness-based stress reduction (MBSR) program. The results revealed significant changes in areas of the brain associated with learning, memory, self-awareness, and emotional regulation.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>Increased gray matter density in the hippocampus (learning and memory).</li>
+                        <li>Decreased gray matter density in the amygdala (fear and stress response).</li>
+                        <li>Improved connectivity between brain regions involved in emotional regulation.</li>
+                        <li>Participants reported a 60% average reduction in perceived stress and anxiety.</li>
+                    </ul>
+                    
+                    <p>"This study provides compelling scientific evidence that mindfulness meditation is not just a relaxation technique, but a powerful tool for actively reshaping the brain for greater resilience and emotional well-being," stated Dr. Emily Chen.</p>
+                    
+                    <p>The researchers suggest that incorporating mindfulness into daily life can lead to lasting positive changes in mental health.</p>
+                `
+            },
+            'gene-therapy': {
+                title: 'Gene Therapy Shows Promise for Treating Type 1 Diabetes',
+                image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop',
+                author: 'Dr. Robert Anderson',
+                date: 'December 11, 2024',
+                category: 'Medical Innovation',
+                content: `
+                    <p>Clinical trials across American and European medical centers demonstrate that innovative gene therapy could restore insulin production in Type 1 diabetes patients, potentially eliminating the need for daily injections.</p>
+                    
+                    <p>The experimental therapy involves introducing a gene that enables pancreatic beta cells to produce insulin independently, even in the absence of the immune system's attack that characterizes Type 1 diabetes. Early results from Phase 1 trials have been highly encouraging.</p>
+                    
+                    <p><strong>Key Findings:</strong></p>
+                    <ul>
+                        <li>Restored insulin production in 70% of trial participants.</li>
+                        <li>Reduced or eliminated the need for exogenous insulin injections.</li>
+                        <li>Improved glycemic control and reduced risk of diabetic complications.</li>
+                        <li>The therapy was well-tolerated with minimal side effects.</li>
+                    </ul>
+                    
+                    <p>"This gene therapy represents a potential paradigm shift in how we treat Type 1 diabetes," said Dr. Robert Anderson, lead investigator. "The goal is to move beyond managing the condition to offering a functional cure."</p>
+                    
+                    <p>Further trials are planned to confirm efficacy and safety in a larger patient population, with hopes for regulatory approval within the next five years.</p>
+                `
+            },
+            'work-life-balance': {
+                title: 'The Science of Work-Life Balance: What Really Works',
+                image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop',
+                author: 'Dr. Lisa Williams',
+                date: 'December 10, 2024',
+                category: 'Lifestyle Medicine',
+                content: `
+                    <p>Comprehensive analysis of workplace wellness programs across America and Europe reveals which strategies actually improve employee health and happiness. The results challenge conventional wisdom about work-life balance.</p>
+                    
+                    <p>A decade-long study by the Global Wellness Institute, tracking over 100,000 employees, found that traditional approaches like flexible hours and gym memberships often have limited impact. Instead, factors like supportive management, clear boundaries, and opportunities for meaningful work are more crucial.</p>
+                    
+                    <p><strong>Effective Strategies:</strong></p>
+                    <ul>
+                        <li><strong>Managerial Support:</strong> Leaders who actively promote well-being and respect personal time.</li>
+                        <li><strong>Clear Boundaries:</strong> Policies that discourage constant connectivity and encourage disconnection after work hours.</li>
+                        <li><strong>Autonomy and Control:</strong> Employees having a say in how and when they work.</li>
+                        <li><strong>Meaningful Work:</strong> Opportunities for employees to feel their work is purposeful and impactful.</li>
+                        <li><strong>Focus on Well-being Programs:</strong> Initiatives that address mental health, stress management, and physical activity holistically.</li>
+                    </ul>
+                    
+                    <p>"True work-life balance isn't just about hours worked, but about the quality of life both inside and outside of work," explained Dr. Lisa Williams. "Organizations need to foster a culture that prioritizes employee well-being as much as productivity."</p>
+                `
+            },
+
+            'hiit-training': {
+                title: 'HIIT vs. Steady Cardio: Which Burns More Fat?',
+                image: 'https://www.vitalscend.com/wp-content/uploads/2023/03/hiit-vs-liss.svg',
+                author: 'Dr. Marco Silva',
+                date: 'December 11, 2024',
+                category: 'Exercise Science',
+                content: `
+                    <p>A review of 30 studies indicates HIIT can match or exceed steady-state cardio for fat loss in less time.</p>
+                    <ul>
+                        <li>Time-efficient protocols (10–20 min)</li>
+                        <li>Improved VO2 max and insulin sensitivity</li>
+                        <li>Alternate with low-intensity days for recovery</li>
+                    </ul>
+                `
+            },
+            'digital-detox': {
+                title: 'Digital Detox: Reclaiming Your Mental Space',
+                image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop',
+                author: 'Dr. Anna Müller',
+                date: 'December 10, 2024',
+                category: 'Mental Health',
+                content: `
+                    <p>Multiple randomized and observational studies across European cohorts show that reducing recreational screen time by roughly 90–120 minutes per day improves sleep quality, reduces perceived stress, and lowers anxiety symptom scores within 2–4 weeks.</p>
+                    <p>Benefits appear strongest when screen-free blocks are scheduled during the first and last hours of the day, and when replaced with restorative activities (light movement, reading, mindful breathing) rather than other digital inputs.</p>
+                    <p><strong>Practical Steps:</strong></p>
+                    <ul>
+                        <li>Establish phone-free zones (bedroom, dining table) and phone-free times (first hour after waking, last hour before bed).</li>
+                        <li>Use app timers and grayscale mode to reduce impulsive scrolling.</li>
+                        <li>Batch notifications and disable non-essential alerts.</li>
+                        <li>Replace evening screens with low-light activities (stretching, journaling, paper books).</li>
+                    </ul>
+                    <p><strong>What to Expect:</strong> Many participants report earlier sleep onset, fewer nighttime awakenings, and improved morning energy within two weeks. Track your changes (sleep, mood, focus) to reinforce adherence.</p>
+                `
+            },
+            'social-connections': {
+                title: 'Social Connections: The Ultimate Health Booster',
+                image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=400&fit=crop',
+                author: 'Dr. Helen Brooks',
+                date: 'December 9, 2024',
+                category: 'Longevity',
+                content: `
+                    <p>Harvard’s longitudinal research links high-quality relationships with lower rates of cardiovascular disease, depression, and cognitive decline. Social support buffers the physiological stress response, lowering cortisol and inflammatory markers.</p>
+                    <p>Importantly, <em>relationship quality</em> matters more than network size. Small circles with trust and mutual support outperform large, superficial networks.</p>
+                    <p><strong>Build Protective Bonds:</strong></p>
+                    <ul>
+                        <li>Schedule weekly touchpoints (walks, phone calls) and protect them like appointments.</li>
+                        <li>Join interest-based communities to increase frequency of positive interactions.</li>
+                        <li>Practice “active constructive responding” to celebrate others’ wins and deepen rapport.</li>
+                        <li>Invest in intergenerational ties—these broaden meaning and resilience.</li>
+                    </ul>
+                    <p>Measure progress via subjective well-being, perceived stress, and sleep quality—common early responders to stronger social ties.</p>
+                `
+            },
+            'stress-management': {
+                title: '5 Science-Backed Stress Reduction Techniques',
+                image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=400&fit=crop',
+                author: 'Dr. Priya Singh',
+                date: 'December 8, 2024',
+                category: 'Behavioral Health',
+                content: `
+                    <p>Chronic stress elevates sympathetic tone and inflammation, impairing sleep, mood, and metabolic health. A multimodal approach reliably outperforms single techniques.</p>
+                    <p><strong>Core Toolkit (10–20 min/day):</strong></p>
+                    <ol>
+                        <li><strong>Mindful breathing (4-7-8 or box breathing):</strong> downshifts autonomic arousal within minutes.</li>
+                        <li><strong>Progressive muscle relaxation:</strong> cycles tension–release to reduce somatic stress.</li>
+                        <li><strong>Nature exposure:</strong> brief green-space walks lower cortisol and improve affect.</li>
+                        <li><strong>Expressive journaling:</strong> improves cognitive processing and reduces rumination.</li>
+                        <li><strong>Pro-social check-in:</strong> short supportive calls or hugs raise oxytocin and safety signals.</li>
+                    </ol>
+                    <p><strong>Weekly Structure:</strong> Pick two daily practices (e.g., breathing + journaling) and one longer weekly session (forest walk, yoga class). Track sleep latency, irritability, and energy to verify response and adjust dosage.</p>
+                `
+            },
+            'ai-healthcare': {
+                title: 'AI Diagnoses Skin Cancer More Accurately Than Doctors',
+                image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=800&h=400&fit=crop',
+                author: 'Dr. Sofia Ricci',
+                date: 'December 9, 2024',
+                category: 'Medical AI',
+                content: `
+                    <p>An ensemble model trained on multi-institution dermoscopy datasets achieved ~95% sensitivity for melanoma detection, exceeding average clinician performance in validation cohorts.</p>
+                    <p>Experts caution that AI should augment—not replace—clinical judgment, especially for rare presentations and atypical skin types underrepresented in training data.</p>
+                    <p><strong>Clinical Integration Considerations:</strong></p>
+                    <ul>
+                        <li>Use as a triage tool to prioritize urgent biopsies and reduce missed melanomas.</li>
+                        <li>Monitor false positives to avoid unnecessary procedures and anxiety.</li>
+                        <li>Document model versioning, data provenance, and ongoing bias audits.</li>
+                        <li>Provide patient-facing explanations to maintain trust and informed consent.</li>
+                    </ul>
+                    <p>Pilot deployments report shorter wait times and improved early-detection rates when paired with dermatologist oversight.</p>
+                `
+            },
+            'universal-vaccine': {
+                title: 'Universal Flu Vaccine Shows Promise in Trials',
+                image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=400&fit=crop',
+                author: 'Dr. Jacob Turner',
+                date: 'December 8, 2024',
+                category: 'Vaccine Research',
+                content: `
+                    <p>By targeting conserved regions of influenza hemagglutinin, candidate vaccines elicited broadly neutralizing antibodies across multiple strains and subtypes in early-phase studies.</p>
+                    <p>Researchers are exploring nanoparticle and mRNA platforms to improve durability and breadth of protection.</p>
+                    <p><strong>Development Timeline:</strong></p>
+                    <ul>
+                        <li>Phase 1: Safety and immunogenicity—favorable profile in adults.</li>
+                        <li>Phase 2: Dose finding and durability testing across age groups.</li>
+                        <li>Phase 3: Multi-season efficacy vs. circulating strains in diverse geographies.</li>
+                    </ul>
+                    <p>If successful, a universal approach could reduce seasonal mismatch and the need for frequent reformulations.</p>
+                `
+            },
+            'telemedicine': {
+                title: 'Telemedicine Improves Rural Healthcare Access',
+                image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=400&fit=crop',
+                author: 'Dr. Elena Novak',
+                date: 'December 7, 2024',
+                category: 'Health Systems',
+                content: `
+                    <p>Rural health networks report improved follow-up adherence, shorter time-to-consult, and reduced travel burden when video visits supplement local clinics.</p>
+                    <p>Chronic disease programs (diabetes, heart failure) show better control metrics with remote monitoring and coaching.</p>
+                    <p><strong>Implementation Tips:</strong></p>
+                    <ul>
+                        <li>Prioritize low-bandwidth options and asynchronous messaging for limited connectivity.</li>
+                        <li>Standardize device kits and onboarding to reduce technical failure rates.</li>
+                        <li>Integrate with EHR for seamless documentation and care coordination.</li>
+                        <li>Offer hybrid models (in-person + virtual) based on risk and preference.</li>
+                    </ul>
+                    <p>Equity guardrails—language access, accessible UI, and device lending—are critical to ensure inclusive benefits.</p>
+                `
+            },
+            'aromatherapy': {
+                title: 'Aromatherapy: Science Behind the Scents',
+                image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&h=400&fit=crop',
+                author: 'Dr. Camille Laurent',
+                date: 'December 6, 2024',
+                category: 'Complementary Medicine',
+                content: `
+                    <p>Meta-analyses suggest small-to-moderate benefits for state anxiety and sleep initiation with certain essential oils, particularly lavender and bergamot.</p>
+                    <p>Effects are enhanced when paired with relaxation routines and consistent bedtime schedules.</p>
+                    <p><strong>Practical Guide:</strong></p>
+                    <ul>
+                        <li>Lavender (diffuser or pillow spray) 20–30 minutes before bed.</li>
+                        <li>Bergamot inhalation for pre-event nerves; avoid direct skin application without dilution.</li>
+                        <li>Perform patch tests; keep oils away from pets and children; avoid ingestion.</li>
+                    </ul>
+                    <p>Use as an adjunct—not a replacement—for evidence-based care when addressing chronic insomnia or anxiety disorders.</p>
+                `
+            },
+            'forest-bathing': {
+                title: 'Forest Bathing: Nature\'s Prescription for Health',
+                image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=400&fit=crop',
+                author: 'Dr. Hiroshi Tanaka',
+                date: 'December 5, 2024',
+                category: 'Lifestyle',
+                content: `
+                    <p>Shinrin-yoku sessions are associated with lower cortisol, blood pressure, and pulse, alongside increases in natural killer (NK) cell activity that can persist for days.</p>
+                    <p>Benefits are strongest in biodiverse green spaces with reduced noise and particulate exposure.</p>
+                    <p><strong>Suggested Cadence:</strong></p>
+                    <ul>
+                        <li>1–2 sessions per week, 60–120 minutes, at conversational walking pace.</li>
+                        <li>Engage senses—visual scanning of greenery, natural sounds, phytoncide-rich areas (conifers).</li>
+                        <li>Leave devices behind or in airplane mode to minimize cognitive load.</li>
+                    </ul>
+                    <p>Urban alternatives include botanical gardens, riverside paths, and tree-lined neighborhoods.</p>
+                `
+            },
+            'massage-therapy': {
+                title: 'Massage Therapy: More Than Just Relaxation',
+                image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=800&h=400&fit=crop',
+                author: 'Dr. Rachel Moore',
+                date: 'December 5, 2024',
+                category: 'Pain Management',
+                content: `
+                    <p>Randomized trials report reductions in chronic low back pain, tension headaches, and anxiety with regular massage, particularly when combined with exercise and sleep hygiene.</p>
+                    <p>Outcomes vary by modality and frequency; brief weekly sessions can yield meaningful improvements within 4–8 weeks.</p>
+                    <p><strong>Choosing a Modality:</strong></p>
+                    <ul>
+                        <li><strong>Swedish:</strong> general relaxation and stress relief.</li>
+                        <li><strong>Deep tissue:</strong> targeted myofascial tension (may cause transient soreness).</li>
+                        <li><strong>Myofascial release/trigger point:</strong> focal pain patterns.</li>
+                    </ul>
+                    <p>Consult your clinician for contraindications (e.g., acute injury, clotting disorders) before starting therapy.</p>
+                `
+            },
+            'vitamin-d-covid': {
+                title: 'Vitamin D Deficiency Linked to Severe COVID-19',
+                image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=400&fit=crop',
+                author: 'Dr. Tomasz Kowalski',
+                date: 'December 4, 2024',
+                category: 'Epidemiology',
+                content: `
+                    <p>Large European cohort links low serum 25(OH)D levels with increased severity and ICU admissions.</p>
+                `
+            },
+            'coffee-alzheimers': {
+                title: 'Coffee Consumption Reduces Alzheimer\'s Risk',
+                image: 'https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=800&h=400&fit=crop',
+                author: 'Dr. Valentina Rossi',
+                date: 'December 4, 2024',
+                category: 'Neurology',
+                content: `
+                    <p>Meta-analysis suggests 3–4 cups/day correlates with lower Alzheimer’s risk; mechanisms may involve antioxidants.</p>
+                `
+            },
+            'gut-health': {
+                title: 'Gut Health Revolution: New Probiotic Discoveries',
+                image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=400&fit=crop',
+                author: 'Dr. Miguel Alvarez',
+                date: 'December 3, 2024',
+                category: 'Microbiome',
+                content: `
+                    <p>Novel bacterial strains linked to improved metabolic markers and reduced inflammation.</p>
+                `
+            },
+            'blue-zones': {
+                title: 'Blue Zones: Secrets of the World\'s Longest-Lived People',
+                image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&h=400&fit=crop',
+                author: 'Dr. Naomi Okada',
+                date: 'December 3, 2024',
+                category: 'Longevity',
+                content: `
+                    <p>Common threads: plant-forward diet, movement, purpose, social ties, and low chronic stress.</p>
+                `
+            },
+            'intermittent-fasting': {
+                title: 'Intermittent Fasting: What the Latest Research Says',
+                image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?w=800&h=400&fit=crop',
+                author: 'Dr. Olivia Martin',
+                date: 'December 13, 2024',
+                category: 'Nutrition',
+                content: `
+                    <p>A comprehensive review of more than 50 clinical and observational studies finds that time-restricted eating
+                    and alternate-day fasting can support weight management and metabolic health for many adults, when planned
+                    responsibly.</p>
+                    <p>Researchers note that benefits are most consistent when fasting windows are paired with nutrient-dense,
+                    protein-adequate meals and regular physical activity.</p>
+                    <p><strong>Key Takeaways:</strong></p>
+                    <ul>
+                        <li>Modest weight loss and improved insulin sensitivity in 8–12 weeks for many participants.</li>
+                        <li>Comparable results to traditional calorie restriction when total weekly calories are matched.</li>
+                        <li>Not recommended for children, pregnant individuals, or those with a history of disordered eating.</li>
+                        <li>Hydration and electrolyte balance are important during fasting windows.</li>
+                    </ul>
+                    <p>Experts recommend starting with a gentle 12–14 hour overnight fast and increasing only if well tolerated,
+                    prioritizing whole foods, fiber, and adequate protein during eating windows.</p>
+                `
+            },
+            'plant-based-diet': {
+                title: 'Plant-Based Diets Reduce Cancer Risk by 15%',
+                image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&h=400&fit=crop',
+                author: 'Dr. Hannah Patel',
+                date: 'December 12, 2024',
+                category: 'Nutrition Epidemiology',
+                content: `
+                    <p>A decade-long European cohort study tracking more than 500,000 adults associates higher adherence to
+                    plant-forward eating patterns with a 15% lower overall cancer risk, independent of BMI and physical activity.</p>
+                    <p>The largest risk reductions were observed for cancers linked to chronic inflammation and metabolic dysfunction.</p>
+                    <p><strong>Protective Pattern Highlights:</strong></p>
+                    <ul>
+                        <li>Emphasize vegetables, legumes, fruits, whole grains, nuts, and seeds.</li>
+                        <li>Limit processed meats, refined grains, and added sugars.</li>
+                        <li>Choose unsaturated fats (olive oil, avocado) over saturated fats.</li>
+                        <li>Include B12-fortified foods or a supplement for strict vegans.</li>
+                    </ul>
+                    <p>Researchers stress that overall dietary quality—rather than strict elimination—is the critical driver of
+                    the observed protective effect.</p>
+                `
+            },
+            'hydration-research': {
+                title: 'How Much Water Do You Really Need?',
+                image: 'https://images.unsplash.com/photo-1548839140-29a749e1cf4d?w=800&h=400&fit=crop',
+                author: 'Dr. Jason Reed',
+                date: 'December 11, 2024',
+                category: 'Physiology',
+                content: `
+                    <p>Updated guidance challenges the rigid "8 glasses a day" rule, emphasizing that hydration needs vary with
+                    body size, climate, diet, and activity. Thirst and urine color remain simple, effective day-to-day guides.</p>
+                    <p>High-water foods (fruits, vegetables, soups) meaningfully contribute to total fluid intake, as do tea and coffee
+                    for most healthy adults.</p>
+                    <p><strong>Practical Hydration Tips:</strong></p>
+                    <ul>
+                        <li>Aim for pale yellow urine as a quick self-check.</li>
+                        <li>Increase fluids with heat, altitude, or endurance training.</li>
+                        <li>Add electrolytes for prolonged sweating or fasted training sessions.</li>
+                        <li>Balance intake to avoid both under- and overhydration (hyponatremia risk).</li>
+                    </ul>
+                    <p>Individualization is key—listen to your body and adjust based on context rather than following a single universal target.</p>
+                `
+            }
+        };
+
+        function closeModal() {
+            const modal = document.getElementById('articleModal');
+            modal.style.display = 'none';
+            // Re-enable body scroll
+            document.body.style.overflow = 'auto';
+        }
+
+        function showFullArticle(articleId) {
+            const article = articleData[articleId];
+            if (article) {
+                document.getElementById('modalTitle').textContent = article.title;
+                document.getElementById('modalBody').innerHTML = `
+                    <img src="${article.image}" alt="${article.title}">
+                    <div class="modal-meta">
+                        <span>📅 ${article.date}</span>
+                        <span>👤 ${article.author}</span>
+                        <span>🏷️ ${article.category}</span>
+                    </div>
+                    ${article.content}
+                `;
+                document.getElementById('articleModal').style.display = 'block';
+                
+                // Disable body scroll on mobile when modal is open
+                if (window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                }
+            } else {
+                // Fallback for articles not yet fully defined in articleData
+                alert(`Loading full article for "${articleId}"...\n\nThis demonstrates the popup functionality. Full content for this article is not yet available.`);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('articleModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        const searchInputEl = document.getElementById('searchInput');
+        if (searchInputEl) {
+            searchInputEl.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navMenu = document.getElementById('navMenu');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Health Express website loaded successfully!');
+        });
+    </script>
+</body>
+</html>
